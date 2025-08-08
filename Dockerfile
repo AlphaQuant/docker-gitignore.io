@@ -1,4 +1,4 @@
-FROM docker.io/library/debian:bookworm-20250721 AS src
+FROM docker.io/library/debian:bullseye-20250721 AS src
 
 COPY libs/gitignore /gitignore
 COPY libs/gitignore.io /gitignore.io
@@ -22,7 +22,7 @@ RUN set -ex \
     && mv $(swift build -Xswiftc -static-stdlib -c release --show-bin-path)/Run /tmp/Run
 
 # Build node frontend
-FROM docker.io/library/node:22.18.0 AS node-builder
+FROM docker.io/library/node:22.18.0-bullseye AS node-builder
 
 COPY --from=src /gitignore.io /gitignore.io
 
@@ -34,7 +34,7 @@ RUN set -ex \
     && rm -rf node_modules
 
 # Build final image
-FROM docker.io/library/debian:bookworm-20250721 AS dest
+FROM docker.io/library/debian:bullseye-20250721 AS dest
 
 WORKDIR /app
 
