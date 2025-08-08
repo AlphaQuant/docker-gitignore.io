@@ -30,6 +30,8 @@ docker network create \
 docker compose up -d
 ```
 
+visit websites at: `<YourHost>:37789/gitignore`
+
 ## Related GitHub Repos
 
 - <https://github.com/toptal/gitignore.io>
