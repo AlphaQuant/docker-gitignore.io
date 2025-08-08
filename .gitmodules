@@ -1,0 +1,6 @@
+[submodule "libs/gitignore.io"]
+	path = libs/gitignore.io
+	url = https://github.com/AlphaQuant/gitignore.io.git
+[submodule "libs/gitignore"]
+	path = libs/gitignore
+	url = https://github.com/AlphaQuant/gitignore.git

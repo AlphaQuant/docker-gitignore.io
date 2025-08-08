@@ -1,0 +1,29 @@
+x-extras: &extras
+  restart: unless-stopped
+  networks:
+    - public
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "1m"
+      max-file: "1"
+
+networks:
+  public:
+    name: public
+    external: true
+
+services:
+  gitignore-io:
+    image: ${INST_GITIGNORE_IO_IMAGE}
+    container_name: gitignore-io
+    ports:
+      - "37789:8080"
+    env_file:
+      - gitignore-io.env
+    deploy:
+      resources:
+        limits:
+          cpus: "1.00"
+          memory: 2G
+    <<: *extras
