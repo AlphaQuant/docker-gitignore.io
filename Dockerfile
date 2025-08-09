@@ -45,6 +45,7 @@ ARG GOOGLE_ANALYTICS_UID
 
 # Copy the project and remove the node frontend
 COPY --from=src /gitignore.io /app
+COPY --from=src /gitignore.io/.git /app/.git
 
 # Install some necessary dependencies
 RUN set -ex \
