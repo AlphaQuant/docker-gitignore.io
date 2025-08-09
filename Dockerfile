@@ -1,9 +1,14 @@
 FROM docker.io/library/debian:bullseye-20250721 AS src
 
-COPY libs/gitignore /gitignore
-COPY libs/gitignore.io /gitignore.io
+RUN set -ex \
+    && apt update \
+    && apt install git ca-certificates libcurl4 dumb-init --no-install-recommends -y
 
-RUN mkdir -p /gitignore.io/gitignore/templates/ \
+COPY libs/gitignore /gitignore
+
+RUN \
+    git clone --recurse-submodules https://github.com/AlphaQuant/gitignore.io /gitignore.io \
+    && mkdir -p /gitignore.io/gitignore/templates/ \
     && find /gitignore -name '*.gitignore' -exec cp -rpf {} /gitignore.io/gitignore/templates/ \;
 
 # Build swift backend
@@ -45,7 +50,6 @@ ARG GOOGLE_ANALYTICS_UID
 
 # Copy the project and remove the node frontend
 COPY --from=src /gitignore.io /app
-COPY --from=src /gitignore.io/.git /app/.git
 
 # Install some necessary dependencies
 RUN set -ex \
